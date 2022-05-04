@@ -1,0 +1,22 @@
+#!/bin/bash
+mkdir ~/research 2> /dev/null
+echo "A quick system audit script." > ~/research/sys_info.txt
+date >> ~/research/sys_info.txt
+echo "Machine info:" >> ~/research/sys_info.txt
+echo $MACHTYPE >> ~/research/sys_info.txt
+echo -e "Uname info: $(uname -a) \n" >> ~/research/sys_info.txt
+echo -e "IP info: $(ip addr | head -9 | tail -1) \n" >> ~/research/sys_info.txt
+echo -e "Hostname is: $(hostname -s)" >> ~/research/sys_info.txt
+echo "DNS Servers: " >> ~/research/sys_info.txt
+cat /etc/resolv.conf >> ~/research/sys_info.txt
+echo -e "\nMemory Info:" >> ~/research/sys_info.txt
+free >> ~/research/sys_info.txt
+echo -e "\nCPU Info:" >> ~/research/sys_info.txt
+lscpu | grep CPU >> ~/research/sys_info.txt
+echo -e "\n Disk Usage: " >> ~/research/sys_info.txt
+df -H | head -2 >> ~/research/sys_info.txt
+echo -e "\nWho is logged in: $(who -a) \n" >> ~/research/sys_info.txt
+echo -e "\nExecute Files:" >> ~/research/sys_info.txt
+sudo find /home -type f -perm 777 >> ~/research/sys_info.txt
+echo -e "\nTop 10 Processess" >> ~/research/sys_info.txt
+ps aux -m | awk -F '{print $1, $2, $3, $4, $11}' | head >> ~/research/sys_info.txt
